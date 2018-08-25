@@ -15,6 +15,6 @@
     <!-- Primary dark color for the editor -->
     <color name="editorColorPrimaryDark">#D32F2F</color>
 
-    <!-- Primary dark color for the editor -->
+    <!-- Accent color for the editor -->
     <color name="editorColorAccent">#4CAF50</color>
 </resources>

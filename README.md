@@ -13,7 +13,8 @@ Objective: design and create the structure of an Inventory App that will allow a
 
 **Note: This stage of the project will not have any UI components**
 
-<img src="" width="250" height="500">
+<img src="https://i.imgur.com/PVro0b6.jpg" width="500" height="250">
+<img src="https://i.imgur.com/V4nscJg.jpg" width="250" height="500">
 
 This project is about combining various ideas and skills practiced throughout the course. They include:
 

@@ -11,10 +11,12 @@ import com.example.raz.bookstore.data.BookContract.BookEntry;
  */
 public class BookDbHelper extends SQLiteOpenHelper {
     public static final String LOG_TAG = BookDbHelper.class.getSimpleName();
+
     /**
      * Name of the database file
      */
     private static final String DATABASE_NAME = "books.db";
+
     /**
      * Database version. If you change the database schema, you must increment the database version.
      */
@@ -34,6 +36,7 @@ public class BookDbHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         // Create a String that contains the SQL statement to create the books table
         String SQL_CREATE_BOOKS_TABLE = "CREATE TABLE " + BookEntry.TABLE_NAME + " ("
                 + BookEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -42,6 +45,7 @@ public class BookDbHelper extends SQLiteOpenHelper {
                 + BookEntry.COLUMN_BOOK_QUANTITY + " INTEGER NOT NULL DEFAULT 0, "
                 + BookEntry.COLUMN_BOOK_SUPPLIER + " TEXT NOT NULL, "
                 + BookEntry.COLUMN_BOOK_SUPPLIER_PHONE + " TEXT NOT NULL);";
+
         // Execute the SQL statement
         db.execSQL(SQL_CREATE_BOOKS_TABLE);
     }

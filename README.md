@@ -24,7 +24,18 @@ This project is about combining various ideas and skills practiced throughout th
 * Displaying the contents of the table to users.
 
 ## Stage 2
-Soon
+Objective: in Stage 1, you designed and implemented the backend database that stores information about the products and suppliers. In this stage, you'll build out the app UI for users to add and remove inventory.
+
+<img src="" width="250" height="500">
+
+This project is about combining various ideas and skills practiced throughout the course. They include:
+
+* Storing information in a SQLite database
+* Integrating Android’s file storage systems into that database
+* Setting up a Content Provider and use it to access a repository of data
+* Presenting information from files and SQLite databases to users
+* Updating information based on user input
+* Creating intents to other apps using stored information
 
 ## Resources used in this project
 * [Theme colors picked with the help of MaterialPalette](https://www.materialpalette.co)
@@ -33,7 +44,7 @@ Soon
 
 * [Fix for "Failed to load AppCompat ActionBar” error](https://stackoverflow.com/a/44858887/8651044)
 
-* [Mentor review for Stage 1](https://review.udacity.com/#!/reviews/shared)
+* [Mentor review for Stage 1](https://review.udacity.com/#!/reviews/1420513/shared)
 
 * [Mentor review for Stage 2](https://review.udacity.com/#!/reviews/shared)
 
@@ -47,6 +58,6 @@ Soon
     * [Android Drawable Importer](https://plugins.jetbrains.com/plugin/7658-android-drawable-importer)
 
 ## Reflections
-*
+* The most challenging project so far
 
 [Back to Top](#table-of-contents)

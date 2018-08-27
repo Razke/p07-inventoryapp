@@ -284,193 +284,193 @@ public class EditorActivity extends AppCompatActivity implements
         return super.onOptionsItemSelected(item);
     }
 
-        /**
-         * This method is called when the back button is pressed.
-         */
-        @Override
-        public void onBackPressed () {
+    /**
+     * This method is called when the back button is pressed.
+     */
+    @Override
+    public void onBackPressed () {
 
-            // If the book hasn't changed, continue with handling back button press
-            if (!mBookHasChanged) {
-                super.onBackPressed();
-                return;
-            }
-
-            // Otherwise if there are unsaved changes, setup a dialog to warn the user.
-            // Create a click listener to handle the user confirming that changes should be discarded.
-            DialogInterface.OnClickListener discardButtonClickListener =
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                            // User clicked "Discard" button, close the current activity.
-                            finish();
-                        }
-                    };
-
-            // Show dialog that there are unsaved changes
-            showUnsavedChangesDialog(discardButtonClickListener);
+        // If the book hasn't changed, continue with handling back button press
+        if (!mBookHasChanged) {
+            super.onBackPressed();
+            return;
         }
 
-        @Override
-        public Loader<Cursor> onCreateLoader ( int i, Bundle bundle){
+        // Otherwise if there are unsaved changes, setup a dialog to warn the user.
+        // Create a click listener to handle the user confirming that changes should be discarded.
+        DialogInterface.OnClickListener discardButtonClickListener =
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-            // Since the editor shows all book attributes, define a projection that contains
-            // all columns from the book table
-            String[] projection = {
-                    BookEntry._ID,
-                    BookEntry.COLUMN_BOOK_NAME,
-                    BookEntry.COLUMN_BOOK_PRICE,
-                    BookEntry.COLUMN_BOOK_QUANTITY,
-                    BookEntry.COLUMN_BOOK_SUPPLIER,
-                    BookEntry.COLUMN_BOOK_SUPPLIER_PHONE};
-
-            // This loader will execute the ContentProvider's query method on a background thread
-            return new CursorLoader(this,   // Parent activity context
-                    mCurrentBookUri,         // Query the content URI for the current book
-                    projection,             // Columns to include in the resulting Cursor
-                    null,                   // No selection clause
-                    null,                   // No selection arguments
-                    null);                  // Default sort order
-        }
-
-        @Override
-        public void onLoadFinished (Loader < Cursor > loader, Cursor cursor){
-
-            // Bail early if the cursor is null or there is less than 1 row in the cursor
-            if (cursor == null || cursor.getCount() < 1) {
-                return;
-            }
-
-            // Proceed with moving to the first row of the cursor and reading data from it
-            // (This should be the only row in the cursor)
-            if (cursor.moveToFirst()) {
-
-                // Find the columns of book attributes that we're interested in
-                int nameColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_NAME);
-                int priceColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_PRICE);
-                int quantityColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_QUANTITY);
-                int supplierColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_SUPPLIER);
-                int supplierPhoneColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_SUPPLIER_PHONE);
-
-                // Extract out the value from the Cursor for the given column index
-                String nameString = cursor.getString(nameColumnIndex);
-                int price = cursor.getInt(priceColumnIndex);
-                int quantity = cursor.getInt(quantityColumnIndex);
-                String supplierNameString = cursor.getString(supplierColumnIndex);
-                String supplierPhoneNumberString = cursor.getString(supplierPhoneColumnIndex);
-
-                // Update the views on the screen with the values from the database
-                mBookNameEditText.setText(nameString);
-                mPriceEditText.setText(Integer.toString(price));
-                mQuantityEditText.setText(Integer.toString(quantity));
-                mSupplierNameEditText.setText(supplierNameString);
-                mSupplierPhoneNumberEditText.setText(supplierPhoneNumberString);
-            }
-        }
-
-        @Override
-        public void onLoaderReset (Loader < Cursor > loader) {
-
-            // If the loader is invalidated, clear out all the data from the input fields.
-            mBookNameEditText.setText("");
-            mPriceEditText.setText("");
-            mQuantityEditText.setText("");
-            mSupplierNameEditText.setText("");
-            mSupplierPhoneNumberEditText.setText("");
-        }
-
-        /**
-         * Show a dialog that warns the user there are unsaved changes that will be lost
-         * if they continue leaving the editor.
-         *
-         * @param discardButtonClickListener is the click listener for what to do when
-         *                                   the user confirms they want to discard their changes
-         */
-        private void showUnsavedChangesDialog (
-                DialogInterface.OnClickListener discardButtonClickListener){
-
-            // Create an AlertDialog.Builder and set the message, and click listeners
-            // for the positive and negative buttons on the dialog.
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(R.string.unsaved_changes_dialog_msg);
-            builder.setPositiveButton(R.string.discard, discardButtonClickListener);
-            builder.setNegativeButton(R.string.keep_editing, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-
-                    // User clicked the "Keep editing" button, so dismiss the dialog
-                    // and continue editing the book.
-                    if (dialog != null) {
-                        dialog.dismiss();
+                        // User clicked "Discard" button, close the current activity.
+                        finish();
                     }
-                }
-            });
+                };
 
-            // Create and show the AlertDialog
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
+        // Show dialog that there are unsaved changes
+        showUnsavedChangesDialog(discardButtonClickListener);
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader ( int i, Bundle bundle){
+
+        // Since the editor shows all book attributes, define a projection that contains
+        // all columns from the book table
+        String[] projection = {
+                BookEntry._ID,
+                BookEntry.COLUMN_BOOK_NAME,
+                BookEntry.COLUMN_BOOK_PRICE,
+                BookEntry.COLUMN_BOOK_QUANTITY,
+                BookEntry.COLUMN_BOOK_SUPPLIER,
+                BookEntry.COLUMN_BOOK_SUPPLIER_PHONE};
+
+        // This loader will execute the ContentProvider's query method on a background thread
+        return new CursorLoader(this,   // Parent activity context
+                mCurrentBookUri,         // Query the content URI for the current book
+                projection,             // Columns to include in the resulting Cursor
+                null,                   // No selection clause
+                null,                   // No selection arguments
+                null);                  // Default sort order
+    }
+
+    @Override
+    public void onLoadFinished (Loader < Cursor > loader, Cursor cursor){
+
+        // Bail early if the cursor is null or there is less than 1 row in the cursor
+        if (cursor == null || cursor.getCount() < 1) {
+            return;
         }
 
-        /**
-         * Prompt the user to confirm that they want to delete this book.
-         */
-        private void showDeleteConfirmationDialog () {
+        // Proceed with moving to the first row of the cursor and reading data from it
+        // (This should be the only row in the cursor)
+        if (cursor.moveToFirst()) {
 
-            // Create an AlertDialog.Builder and set the message, and click listeners
-            // for the positive and negative buttons on the dialog.
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(R.string.delete_dialog_msg);
-            builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
+            // Find the columns of book attributes that we're interested in
+            int nameColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_NAME);
+            int priceColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_PRICE);
+            int quantityColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_QUANTITY);
+            int supplierColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_SUPPLIER);
+            int supplierPhoneColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_SUPPLIER_PHONE);
 
-                    // User clicked the "Delete" button, so delete the book.
-                    deleteBook();
-                }
-            });
-            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
+            // Extract out the value from the Cursor for the given column index
+            String nameString = cursor.getString(nameColumnIndex);
+            int price = cursor.getInt(priceColumnIndex);
+            int quantity = cursor.getInt(quantityColumnIndex);
+            String supplierNameString = cursor.getString(supplierColumnIndex);
+            String supplierPhoneNumberString = cursor.getString(supplierPhoneColumnIndex);
 
-                    // User clicked the "Cancel" button, so dismiss the dialog
-                    // and continue editing the book.
-                    if (dialog != null) {
-                        dialog.dismiss();
-                    }
-                }
-            });
-
-            // Create and show the AlertDialog
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
-        }
-
-        /**
-         * Perform the deletion of the book in the database.
-         */
-        private void deleteBook () {
-
-            // Only perform the delete if this is an existing book.
-            if (mCurrentBookUri != null) {
-
-                // Call the ContentResolver to delete the book at the given content URI.
-                // Pass in null for the selection and selection args because the mCurrentBookUri
-                // content URI already identifies the book that we want.
-                int rowsDeleted = getContentResolver().delete(mCurrentBookUri, null, null);
-
-                // Show a toast message depending on whether or not the delete was successful.
-                if (rowsDeleted == 0) {
-
-                    // If no rows were deleted, then there was an error with the delete.
-                    Toast.makeText(this, getString(R.string.editor_delete_book_failed),
-                            Toast.LENGTH_SHORT).show();
-                } else {
-
-                    // Otherwise, the delete was successful and we can display a toast.
-                    Toast.makeText(this, getString(R.string.editor_delete_book_successful),
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            // Close the activity
-            finish();
+            // Update the views on the screen with the values from the database
+            mBookNameEditText.setText(nameString);
+            mPriceEditText.setText(Integer.toString(price));
+            mQuantityEditText.setText(Integer.toString(quantity));
+            mSupplierNameEditText.setText(supplierNameString);
+            mSupplierPhoneNumberEditText.setText(supplierPhoneNumberString);
         }
     }
+
+    @Override
+    public void onLoaderReset (Loader < Cursor > loader) {
+
+        // If the loader is invalidated, clear out all the data from the input fields.
+        mBookNameEditText.setText("");
+        mPriceEditText.setText("");
+        mQuantityEditText.setText("");
+        mSupplierNameEditText.setText("");
+        mSupplierPhoneNumberEditText.setText("");
+    }
+
+    /**
+     * Show a dialog that warns the user there are unsaved changes that will be lost
+     * if they continue leaving the editor.
+     *
+     * @param discardButtonClickListener is the click listener for what to do when
+     *                                   the user confirms they want to discard their changes
+     */
+    private void showUnsavedChangesDialog (
+            DialogInterface.OnClickListener discardButtonClickListener){
+
+        // Create an AlertDialog.Builder and set the message, and click listeners
+        // for the positive and negative buttons on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.unsaved_changes_dialog_msg);
+        builder.setPositiveButton(R.string.discard, discardButtonClickListener);
+        builder.setNegativeButton(R.string.keep_editing, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+                // User clicked the "Keep editing" button, so dismiss the dialog
+                // and continue editing the book.
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    /**
+     * Prompt the user to confirm that they want to delete this book.
+     */
+    private void showDeleteConfirmationDialog () {
+
+        // Create an AlertDialog.Builder and set the message, and click listeners
+        // for the positive and negative buttons on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.delete_dialog_msg);
+        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+                // User clicked the "Delete" button, so delete the book.
+                deleteBook();
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+                // User clicked the "Cancel" button, so dismiss the dialog
+                // and continue editing the book.
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    /**
+     * Perform the deletion of the book in the database.
+     */
+    private void deleteBook () {
+
+        // Only perform the delete if this is an existing book.
+        if (mCurrentBookUri != null) {
+
+            // Call the ContentResolver to delete the book at the given content URI.
+            // Pass in null for the selection and selection args because the mCurrentBookUri
+            // content URI already identifies the book that we want.
+            int rowsDeleted = getContentResolver().delete(mCurrentBookUri, null, null);
+
+            // Show a toast message depending on whether or not the delete was successful.
+            if (rowsDeleted == 0) {
+
+                // If no rows were deleted, then there was an error with the delete.
+                Toast.makeText(this, getString(R.string.editor_delete_book_failed),
+                        Toast.LENGTH_SHORT).show();
+            } else {
+
+                // Otherwise, the delete was successful and we can display a toast.
+                Toast.makeText(this, getString(R.string.editor_delete_book_successful),
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        // Close the activity
+        finish();
+    }
+}

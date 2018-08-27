@@ -1,13 +1,16 @@
 package com.example.raz.bookstore;
 
+import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
+import com.example.raz.bookstore.data.BookContract;
 import com.example.raz.bookstore.data.BookContract.BookEntry;
 
 /**

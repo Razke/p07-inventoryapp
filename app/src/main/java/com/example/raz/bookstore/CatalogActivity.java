@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.raz.bookstore.data.BookContract;
 import com.example.raz.bookstore.data.BookContract.BookEntry;
 
 /**
@@ -39,6 +41,9 @@ public class CatalogActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Disable portrait orientation
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         setContentView(R.layout.activity_catalog);
 
         // Setup FAB to open EditorActivity
@@ -68,8 +73,8 @@ public class CatalogActivity extends AppCompatActivity implements
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
-                // Create new intent to go to {@link EditorActivity}
-                Intent intent = new Intent(CatalogActivity.this, EditorActivity.class);
+                // Create new intent to go to {@link DetailsActivity}
+                Intent intent = new Intent(CatalogActivity.this, DetailsActivity.class);
 
                 // Form the content URI that represents the specific book that was clicked on,
                 // by appending the "id" (passed as input to this method) onto the
@@ -81,7 +86,7 @@ public class CatalogActivity extends AppCompatActivity implements
                 // Set the URI on the data field of the intent
                 intent.setData(currentBookUri);
 
-                // Launch the {@link EditorActivity} to display the data for the current book.
+                // Launch the {@link DetailsActivity} to display the data for the current book.
                 startActivity(intent);
             }
         });
@@ -152,13 +157,14 @@ public class CatalogActivity extends AppCompatActivity implements
 
         // Define a projection that specifies the columns from the table we care about.
         String[] projection = {
-                BookEntry._ID,
-                BookEntry.COLUMN_BOOK_NAME,
-                BookEntry.COLUMN_BOOK_SUPPLIER};
+                BookContract.BookEntry._ID,
+                BookContract.BookEntry.COLUMN_BOOK_NAME,
+                BookContract.BookEntry.COLUMN_BOOK_PRICE,
+                BookContract.BookEntry.COLUMN_BOOK_QUANTITY};
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
-                BookEntry.CONTENT_URI,   // Provider content URI to query
+                BookContract.BookEntry.CONTENT_URI,   // Provider content URI to query
                 projection,             // Columns to include in the resulting Cursor
                 null,                   // No selection clause
                 null,                   // No selection arguments

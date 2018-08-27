@@ -6,4 +6,23 @@
 
     <!-- Common margin value used throughout the app -->
     <dimen name="activity_margin">16dp</dimen>
+    <dimen name="layout_spacing">120dp</dimen>
+
+    <!-- Text sizes -->
+    <dimen name="textSizeHuge">48sp</dimen>
+    <dimen name="textSizeBig">24sp</dimen>
+    <dimen name="textSizeLarge">20sp</dimen>
+    <dimen name="textSizeMedium">16sp</dimen>
+    <dimen name="textSizeNormal">14sp</dimen>
+    <dimen name="textSizeSmall">12sp</dimen>
+
+    <!-- Typical spacing between two views -->
+    <dimen name="spacingSuper">150dp</dimen>
+    <dimen name="spacingImmense">90dp</dimen>
+    <dimen name="spacingGiant">55dp</dimen>
+    <dimen name="spacingBig">32dp</dimen>
+    <dimen name="spacingMedium">16dp</dimen>
+    <dimen name="spacingNormal">14dp</dimen>
+    <dimen name="spacingSmall">10dp</dimen>
+    <dimen name="spacingTiny">4dp</dimen>
 </resources>

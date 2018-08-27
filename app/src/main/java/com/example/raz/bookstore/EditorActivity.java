@@ -7,6 +7,7 @@ import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -94,6 +95,9 @@ public class EditorActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Disable portrait orientation
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         setContentView(R.layout.activity_editor);
 
         // Examine the intent that was used to launch this activity,
@@ -288,7 +292,7 @@ public class EditorActivity extends AppCompatActivity implements
      * This method is called when the back button is pressed.
      */
     @Override
-    public void onBackPressed () {
+    public void onBackPressed() {
 
         // If the book hasn't changed, continue with handling back button press
         if (!mBookHasChanged) {
@@ -313,7 +317,7 @@ public class EditorActivity extends AppCompatActivity implements
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader ( int i, Bundle bundle){
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
 
         // Since the editor shows all book attributes, define a projection that contains
         // all columns from the book table
@@ -335,7 +339,7 @@ public class EditorActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onLoadFinished (Loader < Cursor > loader, Cursor cursor){
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
 
         // Bail early if the cursor is null or there is less than 1 row in the cursor
         if (cursor == null || cursor.getCount() < 1) {
@@ -370,7 +374,7 @@ public class EditorActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onLoaderReset (Loader < Cursor > loader) {
+    public void onLoaderReset(Loader<Cursor> loader) {
 
         // If the loader is invalidated, clear out all the data from the input fields.
         mBookNameEditText.setText("");
@@ -387,8 +391,8 @@ public class EditorActivity extends AppCompatActivity implements
      * @param discardButtonClickListener is the click listener for what to do when
      *                                   the user confirms they want to discard their changes
      */
-    private void showUnsavedChangesDialog (
-            DialogInterface.OnClickListener discardButtonClickListener){
+    private void showUnsavedChangesDialog(
+            DialogInterface.OnClickListener discardButtonClickListener) {
 
         // Create an AlertDialog.Builder and set the message, and click listeners
         // for the positive and negative buttons on the dialog.
@@ -414,7 +418,7 @@ public class EditorActivity extends AppCompatActivity implements
     /**
      * Prompt the user to confirm that they want to delete this book.
      */
-    private void showDeleteConfirmationDialog () {
+    private void showDeleteConfirmationDialog() {
 
         // Create an AlertDialog.Builder and set the message, and click listeners
         // for the positive and negative buttons on the dialog.
@@ -446,7 +450,7 @@ public class EditorActivity extends AppCompatActivity implements
     /**
      * Perform the deletion of the book in the database.
      */
-    private void deleteBook () {
+    private void deleteBook() {
 
         // Only perform the delete if this is an existing book.
         if (mCurrentBookUri != null) {

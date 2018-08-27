@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_margin"
+    tools:context=".EditorActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_book_name"
+            style="@style/EditorFieldStyle"
+            tools:text="@string/hint_book_name" />
+
+        <TextView
+            android:id="@+id/text_book_price"
+            style="@style/EditorFieldStyle"
+            tools:text="@string/hint_book_price" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quantity: "
+                android:textAppearance="?android:textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/text_book_quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:textAppearanceMedium"
+                tools:text="0 " />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_decrement"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:text="-"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/button_increment"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:text="+"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_book_supplier"
+            style="@style/EditorFieldStyle"
+            tools:text="@string/hint_book_supplier" />
+
+        <TextView
+            android:id="@+id/text_book_supplier_phone"
+            style="@style/EditorFieldStyle"
+            android:inputType="phone"
+            tools:text="@string/hint_book_supplier_phone" />
+
+        <Button
+            android:id="@+id/button_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_call"
+            android:drawablePadding="10dp"
+            android:text="contact supplier"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_edit"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/button_delete"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_delete"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+</LinearLayout>

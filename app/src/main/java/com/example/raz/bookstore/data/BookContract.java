@@ -9,11 +9,6 @@ import android.provider.BaseColumns;
  */
 public final class BookContract {
 
-    // To prevent someone from accidentally instantiating the contract class,
-    // give it an empty constructor.
-    private BookContract() {
-    }
-
     public static final String CONTENT_AUTHORITY = "com.example.raz.bookstore";
 
     /**
@@ -24,6 +19,10 @@ public final class BookContract {
 
     public static final String PATH_BOOKS = "books";
 
+    // To prevent someone from accidentally instantiating the contract class,
+    // give it an empty constructor.
+    private BookContract() {
+    }
 
     /**
      * Inner class that defines constant values for the books database table.

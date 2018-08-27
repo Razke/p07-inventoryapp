@@ -29,7 +29,7 @@
     <string name="hint_book_supplier_phone">Supplier Phone</string>
 
     <string name="editor_insert_book_successful">Book saved</string>
-    <string name="editor_insert_book_failed">Error with saving book</string>
+    <string name="editor_insert_book_failed">One or more fields are not filled</string>
 
     <string name="empty_view_title_text">No books in the inventory.</string>
     <string name="empty_view_subtitle_text">Populate the inventory by adding a book below.</string>
